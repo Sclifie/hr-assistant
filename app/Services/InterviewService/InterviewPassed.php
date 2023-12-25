@@ -16,7 +16,7 @@ class InterviewPassed implements InterviewServiceInterface
                 $newEmployee = Employee::create($interviewData);
                 $interview->update(['employee_id' => $newEmployee->id]);
                 return $interview->refresh();
-            });
+            }, 3);
         } catch (\Exception $exception) {
             \Log::error('Model Interview not created into Transaction ' . $exception->getMessage());
             return false;

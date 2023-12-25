@@ -1,6 +1,8 @@
 <?php
 
 return [
+    "Interview" => 'Interview',
+    "Interview Created" => "Interview Created",
     'passed' => 'passed',
     'open' => 'open',
     'rejected' => 'rejected',

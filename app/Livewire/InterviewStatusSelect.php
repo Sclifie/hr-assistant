@@ -9,9 +9,11 @@ class InterviewStatusSelect extends Component
 {
     public $statuses;
     public $label;
+    public $value;
     
-    public function mount()
+    public function mount($value)
     {
+        $this->value = $value;
         $this->label = __('Status');
         $this->statuses = InterviewStatusesEnum::cases();
     }

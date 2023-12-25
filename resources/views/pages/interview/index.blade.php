@@ -16,11 +16,11 @@
                             >Перейти к интервью</a>
                         </div>
                     @endforeach
-                        <div class="p-2 mt-8 bg-gray-100 flex justify-between">
-                            <div>
-                                {{$interviews->links()}}
-                            </div>
+                        <div class="p-2 my-8 bg-gray-100 flex justify-end">
                             <a class="transition ease-in-out bg-green-500 hover:bg-green-700 px-4 py-2 text-white" href="{{route('interview.create')}}">Создать интервью</a>
+                        </div>
+                        <div>
+                            {{$interviews->links()}}
                         </div>
                 </div>
             </div>

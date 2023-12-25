@@ -1,18 +1,12 @@
 <section>
-    <header>
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{__('Edit :name', ['name' => __('interview.Interview')])}} # {{$interview->id}}
-        </h2>
-    </header>
-    <form class="mt-6 space-y-6"
-          action="{{route('interview.update',['interview' => $interview->id])}}">
+    <form class="mt-6 space-y-6" method="POST" action="{{route('interview.store')}}">
         @csrf
         <div>
             <label for="interview_first_name" class="block font-medium text-sm text-gray-700">
                 {{__('Name')}}
                 <input id="interview_first_name"
                        type="text"
-                       value="{{$interview->first_name}}"
+                       value="{{$interview->first_name ?? old('first_name')}}"
                        autocomplete="{{old('first_name')}}"
                        name="first_name"
                        class="border-gray-300 w-full focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
@@ -23,7 +17,7 @@
             <label for="interview_last_name" class="block font-medium text-sm text-gray-700">
                 {{__('Lastname')}}
                 <input id="interview_last_name"
-                       value="{{$interview->last_name}}"
+                       value="{{$interview->last_name ?? old('last_name')}}"
                        autocomplete="{{old('last_name')}}"
                        type="text"
                        name="last_name"
@@ -35,7 +29,7 @@
             <label for="interview_email" class="block font-medium text-sm text-gray-700">
                 Email
                 <input id="interview_first_name"
-                       value="{{$interview->email}}"
+                       value="{{$interview->email ?? old('email')}}"
                        type="email"
                        name="email"
                        class="border-gray-300 w-full focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
@@ -43,15 +37,30 @@
             <x-input-error :messages="$errors->get('email_name')" class="mt-2"/>
         </div>
         <div>
-            <livewire:position-select value="{{$interview->email}}"/>
+            <livewire:position-select value="{{$interview->email ?? old('email')}}"/>
             <x-input-error :messages="$errors->get('position_id')" class="mt-2"/>
         </div>
         <div>
-            <livewire:interview-status-select value="{{$interview->email}}"/>
+            <livewire:interview-status-select value="{{$interview->email ?? old('email')}}"/>
             <x-input-error :messages="$errors->get('status')" class="mt-2"/>
         </div>
         <div class="flex items-center gap-4">
-            <x-button type="submit">{{__('Save')}}</x-button>
+            <button onclick="window.$wireui.confirmNotification({
+                    title: 'Are you Sure?',
+                    description: 'Save the information?',
+                    icon: 'question',
+                    accept: {
+                        label: 'Yes, save it',
+                        method: 'save',
+                        params: 'Saved'
+                    },
+                    reject: {
+                        label: 'No, cancel',
+                        method: 'cancel'
+                    }
+                })">
+                {{ __('Save') }}
+            </button>
         </div>
     </form>
 </section>

@@ -6,7 +6,7 @@
                 dark:bg-secondary-800 dark:border-secondary-600 dark:text-secondary-400 border-secondary-300 focus:ring-primary-500 focus:border-primary-500"
     >
         @foreach($statuses as $status)
-            <option value="{{$status->value}}">{{$status->translation()}}</option>
+            <option value="{{$status->value}}" {{$status->value === $value ? 'selected' : ''}}>{{$status->translation()}}</option>
         @endforeach
     </select>
 </div>

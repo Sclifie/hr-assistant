@@ -10,7 +10,11 @@ class InterviewController extends Controller
 {
     public function index()
     {
-        return view('pages.interview.index',['interviews' => Interview::paginate()]);
+        return view('pages.interview.index', [
+            'interviews' => Interview::query()
+                ->orderBy('created_at', 'DESC')
+                ->paginate()
+        ]);
     }
     
     public function create()
@@ -25,8 +29,9 @@ class InterviewController extends Controller
         if($request->wantsJson()) {
             return response()->json($interview, 201);
         }
-        
-        return redirect()->back()->with('msg','Created');
+
+        return redirect(route('interview.edit',['interview' => $interview->id]))
+            ->with('msg', __('Interview Created'));
     }
     
     public function show(Interview $interview)
@@ -41,6 +46,7 @@ class InterviewController extends Controller
     
     public function update(InterviewRequest $request, Interview $interview)
     {
+        dd($interview);
         $interview->update($request->validated());
         
         return \redirect()->back()->with('msg',"Interview updated");

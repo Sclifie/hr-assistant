@@ -1,9 +1,10 @@
-@extends('dashboard')
+<x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Interview') }}
+            {{ __('Interview') }} # {{$interview->id}}
         </h2>
     </x-slot>
-@section('content')
-    @dump('hello show')
-@endsection
+    @section('content')
+        @dump($interview)
+    @endsection
+</x-app-layout>
