@@ -7,9 +7,9 @@ use App\Models\Employee;
 use App\Models\Interview;
 use Illuminate\Support\Facades\DB;
 
-class InterviewService implements InterviewServiceInterface
+class InterviewService extends InterviewServiceAbstract implements InterviewServiceInterface
 {
-    protected array $interviewCreators = [
+    private array $interviewCreators = [
         'open' => InterviewOpen::class,
         'rejected' => InterviewRejected::class,
         'passed' => InterviewPassed::class,
@@ -19,6 +19,8 @@ class InterviewService implements InterviewServiceInterface
     {
         $interview = (new $this->interviewCreators[$interviewData['status']])
             ->createInterview($interviewData);
+//        Затычка для тестирования
+//        $interview = false;
         
         if( !$interview instanceof Interview ){
             \Log::error("Interview not created in " . __CLASS__);

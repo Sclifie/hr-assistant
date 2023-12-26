@@ -4,9 +4,9 @@ namespace App\Services\InterviewService;
 
 use App\Models\Interview;
 
-class InterviewOpen implements InterviewServiceInterface
+class InterviewOpen extends InterviewService implements InterviewServiceInterface
 {
-    public function createInterview($interviewData): Interview|false
+    public function createInterview($interviewData): Interview
     {
         return Interview::create($interviewData);
     }

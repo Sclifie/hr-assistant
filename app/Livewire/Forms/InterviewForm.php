@@ -2,16 +2,14 @@
 
 namespace App\Livewire\Forms;
 
-use App\Http\Requests\InterviewRequest;
 use App\Models\Interview;
 use JetBrains\PhpStorm\NoReturn;
 use Livewire\Attributes\Locked;
-use Livewire\Attributes\Rule;
-use Livewire\Component;
 use Livewire\Form;
 
 class InterviewForm extends Form
 {
+    /*Почти DTO на уровне From Client*/
     #[Locked]
     public int $id;
     public int $position_id;

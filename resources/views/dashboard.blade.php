@@ -13,4 +13,8 @@
             </div>
         </div>
     </div>
+    <x-modal
+            x-on:open='$wire.emit(exception)'
+            x-on:close='...'>
+    </x-modal>
 </x-app-layout>

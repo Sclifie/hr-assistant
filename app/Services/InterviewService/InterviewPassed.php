@@ -2,13 +2,16 @@
 
 namespace App\Services\InterviewService;
 
+use App\Interfaces\Logged;
 use App\Models\Employee;
 use App\Models\Interview;
 use Illuminate\Support\Facades\DB;
+use Psr\Log\LoggerAwareInterface;
+use Psr\Log\LoggerInterface;
 
-class InterviewPassed implements InterviewServiceInterface
+class InterviewPassed extends InterviewService implements InterviewServiceInterface
 {
-    public function createInterview($interviewData): Interview|false
+    public function createInterview($interviewData): Interview
     {
         try {
             $interview = DB::transaction(function () use ($interviewData) {
@@ -18,10 +21,11 @@ class InterviewPassed implements InterviewServiceInterface
                 return $interview->refresh();
             }, 3);
         } catch (\Exception $exception) {
-            \Log::error('Model Interview not created into Transaction ' . $exception->getMessage());
-            return false;
+            //PDOException или DeadLockException по-идее лучше всего писать на оба варианта.
+            self::log($exception->getMessage() . ' ' . __CLASS__,'error');
         }
         
         return $interview;
     }
+    
 }

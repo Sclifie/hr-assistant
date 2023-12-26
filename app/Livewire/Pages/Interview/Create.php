@@ -8,12 +8,15 @@ use App\Livewire\Forms\InterviewForm;
 use App\Models\Interview;
 use App\Models\Position;
 
-use App\Services\InterviewService\InterviewService;
+use App\Facades\InterviewFacade;
 use Livewire\Component;
+use WireUi\Traits\Actions;
 
 class Create extends Component
 {
-    public InterviewForm $interview;
+    use Actions;
+    
+    public InterviewForm $interviewForm;
     public $positionOptions;
     public $statusOptions;
     
@@ -23,9 +26,16 @@ class Create extends Component
         $this->statusOptions = InterviewStatusesEnum::cases();
     }
     
-    public function updateInterview()
+    public function createInterview()
     {
-       InterviewService::createInterview($this->interview->validate());
+        dd($this->interviewForm);
+        InterviewFacade::createInterview($this->interviewForm->validate());
+        
+        try {
+            InterviewFacade::createInterview($this->interview->validate());
+        } catch (\DomainException $exception){
+            $this->dispatch('exception',['title' => 'err','msg']);
+        }
     }
     
     public function render()
