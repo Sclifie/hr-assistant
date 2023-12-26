@@ -3,26 +3,32 @@
 namespace App\Livewire\Pages\Interview;
 
 use App\Enums\InterviewStatusesEnum;
+use App\Http\Requests\InterviewRequest;
+use App\Livewire\Forms\InterviewForm;
 use App\Models\Interview;
 use App\Models\Position;
 
 use Livewire\Component;
 
-class Edit extends Create
+class Edit extends Component
 {
-    public $interview;
+    public InterviewForm $interviewForm;
     public $positionOptions;
     public $statusOptions;
-    public function mount(Interview $interview)
+    public function mount(Interview $interview = null)
     {
+
         $this->positionOptions = Position::all();
         $this->statusOptions = InterviewStatusesEnum::cases();
-        $this->interview = $interview;
+
+        if($interview !== null){
+            $this->interviewForm->setUp($interview);
+        }
     }
     
     public function updateInterview()
     {
-        dd($this->interview);
+        dd($this->interviewForm->validate());
     }
     
     public function render()

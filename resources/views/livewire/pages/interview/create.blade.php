@@ -1,5 +1,5 @@
 <section>
-    <form class="mt-6 space-y-6" method="POST" action="{{route('interview.store')}}">
+    <form class="mt-6 space-y-6" wire:submit="updateInterview">
         @csrf
         <div>
             <label for="interview_first_name" class="block font-medium text-sm text-gray-700">
@@ -34,7 +34,7 @@
                        name="email"
                        class="border-gray-300 w-full focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm">
             </label>
-            <x-input-error :messages="$errors->get('email_name')" class="mt-2"/>
+            <x-input-error :messages="$errors->get('email')" class="mt-2"/>
         </div>
         <div>
             <livewire:position-select value="{{$interview->email ?? old('email')}}"/>

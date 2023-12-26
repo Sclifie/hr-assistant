@@ -6,5 +6,5 @@ use App\Models\Interview;
 
 interface InterviewServiceInterface
 {
-    public function createInterview(array $interviewData) : Interview | false;
+    public function createInterview(array $interviewData) : Interview | \DomainException;
 }

@@ -15,9 +15,16 @@ class InterviewService implements InterviewServiceInterface
         'passed' => InterviewPassed::class,
     ];
     
-    public function createInterview($interviewData): false|Interview
+    public function createInterview($interviewData): \DomainException|Interview
     {
-        return (new $this->interviewCreators[$interviewData['status']])
+        $interview = (new $this->interviewCreators[$interviewData['status']])
             ->createInterview($interviewData);
+        
+        if( !$interview instanceof Interview ){
+            \Log::error("Interview not created in " . __CLASS__);
+            throw new \DomainException('Interview not created');
+        }
+        
+        return $interview;
     }
 }

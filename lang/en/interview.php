@@ -13,4 +13,5 @@ return [
     'Менеджер' => 'Manager',
     'Дизайнер' => 'Designer',
     'Маркетолог' => 'Marketer',
+    'passed-notice' => 'If interview has passed, in first delete employee',
 ];

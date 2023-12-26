@@ -46,7 +46,6 @@ class InterviewController extends Controller
     
     public function update(InterviewRequest $request, Interview $interview)
     {
-        dd($interview);
         $interview->update($request->validated());
         
         return \redirect()->back()->with('msg',"Interview updated");

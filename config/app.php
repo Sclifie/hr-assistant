@@ -1,5 +1,6 @@
 <?php
 
+use App\Services\InterviewService\InterviewService;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -159,7 +160,7 @@ return [
         /*
          * Package Service Providers...
          */
-
+        
         /*
          * Application Service Providers...
          */
@@ -169,6 +170,8 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\VoltServiceProvider::class,
+        App\Providers\InterviewServiceProvider::class,
+        
     ])->toArray(),
 
     /*
@@ -183,7 +186,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+        'Interview' => \App\Facades\InterviewFacade::class
     ])->toArray(),
 
 ];
