@@ -2,20 +2,25 @@
 
 namespace App\Livewire;
 
+use App\Livewire\Forms\InterviewForm;
 use App\Models\Position;
 use Livewire\Component;
 
 class PositionSelect extends Component
 {
     public $options;
-    public $label;
     public $value;
+    public $form;
     
-    public function mount($value = null)
+    public function mount($form)
     {
-        $this->value = $value;
-        $this->label = __('Position');
+        $this->form = $form;
         $this->options = Position::all();
+    }
+    
+    public function update()
+    {
+    
     }
     
     public function render()
