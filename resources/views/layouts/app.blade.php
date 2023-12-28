@@ -13,11 +13,12 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @wireUiScripts
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
             <livewire:layout.navigation />
-
+            <x-dialog z-index="z-50" blur="md" align="center" />
             <!-- Page Heading -->
             @if (isset($header))
                 <header class="bg-white shadow">

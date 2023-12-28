@@ -17,12 +17,11 @@ class Edit extends Component
     public $statusOptions;
     public function mount(Interview $interview = null)
     {
-
         $this->positionOptions = Position::all();
         $this->statusOptions = InterviewStatusesEnum::cases();
 
         if($interview !== null){
-            $this->interviewForm->setUp($interview);
+            $this->interviewForm->fill($interview->toArray());
         }
     }
     

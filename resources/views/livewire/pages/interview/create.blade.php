@@ -37,11 +37,25 @@
             <x-input-error :messages="$errors->get('interviewForm.email')" class="mt-2"/>
         </div>
         <div>
-            <livewire:position-select :form="$interviewForm"/>
+            <label for="positionId" class="block font-medium text-sm text-gray-700">{{__('Position')}}</label>
+            <select name="position_id" id="positionId"
+                    wire:model="interviewForm.position_id"
+                    class="form-select block w-full pl-3 pr-10 py-2 text-base sm:text-sm shadow-sm rounded-md border bg-white focus:ring-1 focus:outline-none border-secondary-300 focus:ring-primary-500 focus:border-primary-500">
+                @foreach($positionOptions as $option)
+                    <option value="{{$option->id}}" >{{__('interview.'.$option->name)}}</option>
+                @endforeach
+            </select>
             <x-input-error :messages="$errors->get('interviewForm.position_id')" class="mt-2"/>
         </div>
         <div>
-            <livewire:interview-status-select value="{{$interview->email ?? old('email')}}"/>
+            <label for="statusName" class="block font-medium text-sm text-gray-700">{{__('Status')}}</label>
+            <select name="status_name" id="statusName"
+                    wire:model="interviewForm.status"
+                    class="form-select block w-full pl-3 pr-10 py-2 text-base sm:text-sm shadow-sm rounded-md border bg-white focus:ring-1 focus:outline-none border-secondary-300 focus:ring-primary-500 focus:border-primary-500">
+                @foreach($statusOptions as $option)
+                    <option value="{{$option->value}}">{{$option->translation()}}</option>
+                @endforeach
+            </select>
             <x-input-error :messages="$errors->get('interviewForm.status')" class="mt-2"/>
         </div>
         <div class="flex items-center gap-4">

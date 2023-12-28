@@ -4,7 +4,7 @@
             {{ __('Interview') }} # {{$interview->id}}
         </h2>
     </x-slot>
-    @section('content')
-        @dump($interview)
-    @endsection
+    <div>
+        Test
+    </div>
 </x-app-layout>

@@ -6,25 +6,45 @@ use App\Enums\InterviewStatusesEnum;
 use App\Models\Employee;
 use App\Models\Interview;
 use Illuminate\Support\Facades\DB;
+use Psy\CodeCleaner\AbstractClassPass;
 
 class InterviewService extends InterviewServiceAbstract implements InterviewServiceInterface
 {
-    private array $interviewCreators = [
+    private array $interviewWithStatus = [
         'open' => InterviewOpen::class,
         'rejected' => InterviewRejected::class,
         'passed' => InterviewPassed::class,
     ];
     
-    public function createInterview($interviewData): \DomainException|Interview
+    /**
+     * @throws \Exception
+     */
+    public function createInterview($interviewData): \Exception|Interview
     {
-        $interview = (new $this->interviewCreators[$interviewData['status']])
+//      Выбираем создателя по статусу
+        $interview = (new $this->interviewWithStatus[$interviewData['status']])
             ->createInterview($interviewData);
-//        Затычка для тестирования
-//        $interview = false;
         
+//      Если создатель не вернул модельку
         if( !$interview instanceof Interview ){
             \Log::error("Interview not created in " . __CLASS__);
-            throw new \DomainException('Interview not created');
+            throw new \Exception('Interview not created');
+        }
+        
+        return $interview;
+    }
+    
+    /**
+     * @throws \Exception
+     */
+    public function updateInterview(array $interviewData): Interview
+    {
+        $interview = (new $this->interviewWithStatus[$interviewData['status']])
+            ->updateInterview($interviewData);
+        
+        if( !$interview instanceof Interview ){
+            \Log::error("Interview not updated in " . __CLASS__);
+            throw new \Exception('Interview not updated');
         }
         
         return $interview;

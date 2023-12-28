@@ -31,6 +31,10 @@ class Employee extends Model
     public function interview()
     {
         return $this->belongsTo(Interview::class);
-        
+    }
+    
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
 }

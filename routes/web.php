@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\InterviewController;
 use Illuminate\Support\Facades\Route;
 
@@ -25,5 +26,6 @@ Route::view('profile', 'profile')
     ->name('profile');
 
 Route::resource('/interview', InterviewController::class);
+Route::resource('/employee', EmployeeController::class);
 
 require __DIR__.'/auth.php';

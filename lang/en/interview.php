@@ -3,6 +3,7 @@
 return [
     "Interview" => 'Interview',
     "Interview Created" => "Interview Created",
+    "Interview Not Saved Please Connect with Administrator." => "Interview Not Saved Please Connect with Administrator.",
     'passed' => 'passed',
     'open' => 'open',
     'rejected' => 'rejected',

@@ -12,15 +12,18 @@ class PositionSelect extends Component
     public $value;
     public $form;
     
+    public string $positionName;
+    
     public function mount($form)
     {
         $this->form = $form;
         $this->options = Position::all();
     }
     
-    public function update()
+    public function createPosition()
     {
-    
+        Position::create(['name' => $this->positionName]);
+        $this->render();
     }
     
     public function render()

@@ -12,7 +12,7 @@ return [
     | these language lines according to your application's requirements.
     |
     */
-    
+    "Interview Not Saved Please Connect with Administrator." => 'Интервью не создано. Пожалуйста Свяжитесь с администратором.',
     "Interview" => "Интервью",
     "Interview Created" => "Интервью создано",
     'passed' => 'Пройдено',
