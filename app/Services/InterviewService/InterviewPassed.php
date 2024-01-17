@@ -14,7 +14,7 @@ use Psr\Log\LoggerInterface;
 class InterviewPassed extends InterviewServiceAbstract implements InterviewServiceInterface
 {
     protected Interview $interview;
-    public function updateInterview(Interview $interview): Interview
+    public function updateInterview(array|Interview $interview): Interview
     {
         $interview = DB::transaction(function () use ($interview) {
             //  Предохраняемся от повторного создание интервью

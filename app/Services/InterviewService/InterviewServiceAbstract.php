@@ -29,5 +29,5 @@ abstract class InterviewServiceAbstract implements InterviewServiceInterface
         return Interview::firstOrCreate($interviewData);
     }
     
-    abstract function updateInterview(Interview $interview): Interview;
+    abstract function updateInterview(array|Interview $interview): Interview;
 }

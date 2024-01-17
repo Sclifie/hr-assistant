@@ -10,5 +10,5 @@ use App\Models\Interview;
 interface InterviewServiceInterface
 {
     public function createInterview(array $interviewData) : Interview | \Exception;
-    public function updateInterview(Interview $interview) : Interview;
+    public function updateInterview(array|Interview $interview) : Interview;
 }

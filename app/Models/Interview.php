@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Interview extends Model
 {
-    use SoftDeletes, HasFactory;
+    use SoftDeletes, HasFactory, Notifiable;
     
     protected $fillable = [
         'first_name',

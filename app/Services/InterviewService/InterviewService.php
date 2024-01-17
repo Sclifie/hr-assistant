@@ -15,8 +15,11 @@ class InterviewService extends InterviewServiceAbstract implements InterviewServ
     protected Interview|null $interview;
     
     private array $interviewWithStatus = [
+        //  Начальное интервью добавить отправку сообщение о назначении на время
         'open' => InterviewOpen::class,
+        //  Не пройденное интервью добавить отправку сообщение о не пройденом + причина + перемещение в архив
         'rejected' => InterviewRejected::class,
+        //  Пройденное интервью добавить отправку сообщение о пройденом + создание Employee + перемещение в архив
         'passed' => InterviewPassed::class,
     ];
     
@@ -25,7 +28,7 @@ class InterviewService extends InterviewServiceAbstract implements InterviewServ
      * @return Interview
      * @throws Exception
      */
-    public function updateInterview(Interview $interview): Interview
+    public function updateInterview(array|Interview $interview): Interview
     {
         $interview = (new $this->interviewWithStatus[$interview['status']])
             ->updateInterview($interview);
