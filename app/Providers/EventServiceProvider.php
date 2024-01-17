@@ -5,7 +5,7 @@ namespace App\Providers;
 use App\Events\Employee\CreatedEvent;
 use App\Events\InterviewPassedEvent;
 use App\Listeners\EmployeeCreatedListener;
-use App\Listeners\InterviewPassedListener;
+use App\Listeners\SendInterviewPassedMailListener;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -26,7 +26,7 @@ class EventServiceProvider extends ServiceProvider
             EmployeeCreatedListener::class,
         ],
         InterviewPassedEvent::class => [
-            InterviewPassedListener::class,
+            SendInterviewPassedMailListener::class,
         ],
     ];
 

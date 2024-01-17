@@ -25,6 +25,10 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
+// Вообще Livewire отдаётся без явного объявления контроллера,
+// но изначальная реализация планировалась на простых шаблонах, но для избежания написания
+// js было принято решение внедрить Livewire + комментарии в контроллерах писать "хорошо"
+/*TODO : return Livewire::render()*/
 Route::resource('/interview', InterviewController::class);
 Route::resource('/employee', EmployeeController::class);
 

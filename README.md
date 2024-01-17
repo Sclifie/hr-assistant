@@ -13,10 +13,15 @@
     </ul>
 </div>
 <p>
-Сущность interview - интервью с тремя статусами в статусе rejected 
-    interview_passed - пройдено идём по флоу на создание employee + order?->contract
-    interview_rejected - должно отправляться письмо на e-mail к собеседуемому с msg.
+Сущность interview - интервью с 4 статусами
+    
     interview_open - просто создание.
+      #Редактирование
+    interview_passed - пройдено идём по флоу на создание employee + event на mail
+    interview_rejected - должно отправляться письмо на e-mail к собеседуемому с msg.
+      #Удаление
+    interview_archived
+
 </p>
 <p>
 Сущность position - создание позиции в компании сущность без которой не создаётся interview.

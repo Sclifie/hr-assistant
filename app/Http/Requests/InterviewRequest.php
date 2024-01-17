@@ -12,9 +12,18 @@ class InterviewRequest extends FormRequest
             'first_name' => ['required'],
             'last_name' => ['required'],
             'email' => ['required', 'email', 'max:254'],
-            'status' => ['required'],
-            'employee_id' => ['nullable', 'integer'],
-            'position_id' => ['required']
+            'status' => ['nullable'],
+            'employee_id' => ['nullable', 'integer','exists:App\Models\Employee,id'],
+            'position_id' => ['required','exists:App\Models\Position,id']
+        ];
+    }
+    
+    public function attributes()
+    {
+        return [
+            'status' => trans('interview.Status'),
+            'employee_id' => trans('employee.Employee'),
+            'position_id' => 'Позиция'
         ];
     }
     

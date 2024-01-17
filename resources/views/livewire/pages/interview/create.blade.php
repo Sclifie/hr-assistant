@@ -36,32 +36,34 @@
             </label>
             <x-input-error :messages="$errors->get('interviewForm.email')" class="mt-2"/>
         </div>
-        <div>
-            <label for="positionId" class="block font-medium text-sm text-gray-700">{{__('Position')}}</label>
-            <select name="position_id" id="positionId"
-                    wire:model="interviewForm.position_id"
-                    class="form-select block w-full pl-3 pr-10 py-2 text-base sm:text-sm shadow-sm rounded-md border bg-white focus:ring-1 focus:outline-none border-secondary-300 focus:ring-primary-500 focus:border-primary-500">
-                @foreach($positionOptions as $option)
-                    <option value="{{$option->id}}" >{{__('interview.'.$option->name)}}</option>
-                @endforeach
-            </select>
-            <x-input-error :messages="$errors->get('interviewForm.position_id')" class="mt-2"/>
-        </div>
-        <div>
-            <label for="statusName" class="block font-medium text-sm text-gray-700">{{__('Status')}}</label>
-            <select name="status_name" id="statusName"
-                    wire:model="interviewForm.status"
-                    class="form-select block w-full pl-3 pr-10 py-2 text-base sm:text-sm shadow-sm rounded-md border bg-white focus:ring-1 focus:outline-none border-secondary-300 focus:ring-primary-500 focus:border-primary-500">
-                @foreach($statusOptions as $option)
-                    <option value="{{$option->value}}">{{$option->translation()}}</option>
-                @endforeach
-            </select>
-            <x-input-error :messages="$errors->get('interviewForm.status')" class="mt-2"/>
+        <div class="flex flex-nowrap justify-between items-end">
+            <div class="w-3/4 me-2">
+                <label for="positionId" class="block font-medium text-sm text-gray-700">{{__('Position')}}</label>
+                <select name="position_id" id="positionId"
+                        wire:model="interviewForm.position_id"
+                        class="form-select block w-full pl-3 pr-10 py-2 text-base sm:text-sm shadow-sm rounded-md border bg-white focus:ring-1 focus:outline-none border-secondary-300 focus:ring-primary-500 focus:border-primary-500">
+                    @forelse($positionOptions as $option)
+                        <option value="{{$option->id}}" >
+                            {{trans()->hasForLocale('position.' . $option->name) ? __('position.' . $option->name) : $option->name}}
+                        </option>
+                    @empty
+                        <option>Сначала создайте вакансию...</option>
+                    @endforelse
+                </select>
+                <x-input-error :messages="$errors->get('interviewForm.position_id')" class="mt-2"/>
+            </div>
+                <button type="button"
+                        x-on:click="$openModal('create-position');"
+                        class="h-10 transition ease-in-out bg-green-500 hover:bg-green-700 px-4 py-2 text-white"
+                >{{__('position.create')}}</button>
         </div>
         <div class="flex items-center gap-4">
-            <button type="submit">
+            <button type="submit"
+                    class="transition ease-in-out bg-green-500 hover:bg-green-700 px-4 py-2 text-white">
                 {{ __('Save') }}
             </button>
         </div>
     </form>
+{{--    Create Position Modal--}}
+            <livewire:pages.position.create />
 </section>

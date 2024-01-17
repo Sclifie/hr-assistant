@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Interview;
 use App\Services\InterviewService\InterviewService;
 use Illuminate\Support\ServiceProvider;
 
@@ -16,5 +17,6 @@ class InterviewServiceProvider extends ServiceProvider
     
     public function boot(): void
     {
+    
     }
 }

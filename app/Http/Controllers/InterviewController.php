@@ -26,11 +26,11 @@ class InterviewController extends Controller
     {
         $interview = $interviewService->createInterview($request->validated());
         
-        if($request->wantsJson()) {
+        if ($request->wantsJson()) {
             return response()->json($interview, 201);
         }
-
-        return redirect(route('interview.edit',['interview' => $interview->id]))
+        
+        return redirect(route('interview.edit', ['interview' => $interview->id]))
             ->with('msg', __('Interview Created'));
     }
     
@@ -41,14 +41,14 @@ class InterviewController extends Controller
     
     public function edit(Interview $interview)
     {
-        return view('pages.interview.edit',compact('interview'));
+        return view('pages.interview.edit', compact('interview'));
     }
     
     public function update(InterviewRequest $request, Interview $interview)
     {
         $interview->update($request->validated());
         
-        return \redirect()->back()->with('msg',"Interview updated");
+        return \redirect()->back()->with('msg', "Interview updated");
     }
     
     public function destroy(Interview $interview)

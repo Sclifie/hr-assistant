@@ -21,7 +21,15 @@ class Interview extends Model
     ];
     
     /**
-     *  Just return concatenated string
+     * Если поменяем роутбиндинг нужно поменять данный метод
+     */
+    public function path()
+    {
+        return $this->id;
+    }
+    
+    /**
+     *  Просто конкатенированная строка Имя + Фамилия
      * */
     public function getFullName() : string
     {
@@ -29,15 +37,16 @@ class Interview extends Model
     }
     
     /**
-     *   Return employee who passed the interview
+     *  Возвращаем работника
      */
-    public function employee() : HasOne
+    public function employee(): HasOne
     {
-        return $this->hasOne(Employee::class,'employee_id','id');
+        return $this->hasOne(Employee::class, 'employee_id', 'id');
     }
     
+    
     /**
-     *   Return position form current interview
+     *   Позиция по текущему интервью
      */
     public function position() : HasOne
     {

@@ -30,6 +30,15 @@ class InterviewFactory extends Factory
         ];
     }
     
+    public function position($position_id)
+    {
+        return $this->state(function (array $attributes) use ($position_id) {
+            return [
+                'position_id' => $position_id,
+            ];
+        });
+    }
+    
     public function status($status): Factory
     {
         return $this->state(function (array $attributes) use ($status) {

@@ -57,12 +57,12 @@
             <div>
                 <label for="statusName" class="block font-medium text-sm text-gray-700">{{__('Status')}}</label>
                 <select name="status_name" id="statusName"
+                        x-on:change="console.log('Changed')"
                         {{$interviewForm->status === \App\Enums\InterviewStatusesEnum::PASSED->value ? 'disabled' : ''}}
                         wire:model="interviewForm.status"
                         class="form-select block w-full pl-3 pr-10 py-2 text-base sm:text-sm shadow-sm rounded-md border bg-white focus:ring-1 focus:outline-none border-secondary-300 focus:ring-primary-500 focus:border-primary-500">
-                    @foreach($statusOptions as $option)
-                        <option value="{{$option->value}}" {{$option->value === $interviewForm->status ? 'selected' : ''}}>{{$option->translation()}}</option>
-                    @endforeach
+                        <option value="{{\App\Enums\InterviewStatusesEnum::PASSED->value}}">{{\App\Enums\InterviewStatusesEnum::PASSED->translation()}}</option>
+                        <option value="{{\App\Enums\InterviewStatusesEnum::REJECTED->value}}">{{\App\Enums\InterviewStatusesEnum::REJECTED->translation()}}</option>
                 </select>
                 <x-input-error :messages="$errors->get('interviewForm.position_id')" class="mt-2"/>
                 @if($interviewForm->status === \App\Enums\InterviewStatusesEnum::PASSED->value)
@@ -70,7 +70,10 @@
                 @endif
             </div>
             <div class="flex items-center gap-4">
-                <x-button type="submit">{{__('Save')}}</x-button>
+                <button type="submit"
+                        class="transition ease-in-out bg-green-500 hover:bg-green-700 px-4 py-2 text-white">
+                    {{ __('Update') }}
+                </button>
             </div>
         </form>
     </section>

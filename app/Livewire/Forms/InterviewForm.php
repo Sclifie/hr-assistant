@@ -2,16 +2,19 @@
 
 namespace App\Livewire\Forms;
 
+use App\Http\Requests\InterviewRequest;
 use App\Models\Interview;
+use Illuminate\Validation\ValidationException;
 use JetBrains\PhpStorm\NoReturn;
 use Livewire\Attributes\Locked;
 use Livewire\Form;
+use function Livewire\invade;
 
 class InterviewForm extends Form
 {
-    /*Почти DTO на уровне From Client*/
     #[Locked]
     public int $id;
+    
     public int $position_id;
     public string $email;
     public string $first_name;
@@ -19,22 +22,12 @@ class InterviewForm extends Form
     public string $status;
     public int|null $employee_id;
     
-    public $rules = [
-        'first_name' => ['required'],
-        'last_name' => ['required'],
-        'email' => ['required', 'email', 'max:254'],
-        'status' => ['required'],
-        'employee_id' => ['nullable', 'integer'],
-        'position_id' => ['required','exists:App\Models\Position,id']
-    ];
     
-    public $as = [
-    
-    ];
-    
-    private $attributesNames;
-    
-    public function setUp(Interview $interview)
+    /**
+     * Заполнение формы в случае если она используется для редактирования записей
+     * @deprecated reason $this→fill()
+     */
+    public function setUp(Interview $interview) :void
     {
         foreach ($interview->toArray() as $key => $value) {
             // Проверяем, существует ли свойство с именем $key в объекте
@@ -43,6 +36,21 @@ class InterviewForm extends Form
                 $this->$key = $value;
             }
         }
+    }
+    
+    /**
+     * В связи с тем что изначально мы были нацелены на контроллеры,
+     * будем использовать ФормРеквесты для Валидации
+     */
+    public function validateForm() : array
+    {
+//        Для рефактора nameConvervion ReflectionClassName + Request
+        $requestValidator = new InterviewRequest();
+        
+        return $this->validate(
+            rules: $requestValidator->rules(),
+            attributes: $requestValidator->attributes()
+        );
     }
     
     public function __toArray(): array

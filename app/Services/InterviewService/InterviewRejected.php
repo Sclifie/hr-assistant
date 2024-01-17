@@ -6,14 +6,8 @@ use App\Models\Interview;
 
 class InterviewRejected extends InterviewServiceAbstract implements InterviewServiceInterface
 {
-    public function createInterview($interviewData): \DomainException|Interview
+    public function updateInterview(Interview $interview): Interview
     {
-        static::log('Interview Rejected Created at ' . __CLASS__, 'info');
-        return Interview::create($interviewData);
-    }
-    
-    public function updateInterview(array $interviewData): Interview
-    {
-        // TODO: Implement updateInterview() method.
+        // TODO: смену статуса c open => rejected.
     }
 }

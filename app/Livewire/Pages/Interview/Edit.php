@@ -15,14 +15,11 @@ class Edit extends Component
     public InterviewForm $interviewForm;
     public $positionOptions;
     public $statusOptions;
-    public function mount(Interview $interview = null)
+    public function mount(Interview $interview)
     {
         $this->positionOptions = Position::all();
         $this->statusOptions = InterviewStatusesEnum::cases();
-
-        if($interview !== null){
-            $this->interviewForm->fill($interview->toArray());
-        }
+        $this->interviewForm->fill($interview->toArray());
     }
     
     public function updateInterview()

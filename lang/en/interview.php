@@ -6,6 +6,7 @@ return [
     "Interview Not Saved Please Connect with Administrator." => "Interview Not Saved Please Connect with Administrator.",
     'passed' => 'passed',
     'open' => 'open',
+    "archived" => 'archived',
     'rejected' => 'rejected',
     'Position' => 'Position',
     'Status' => 'Status',

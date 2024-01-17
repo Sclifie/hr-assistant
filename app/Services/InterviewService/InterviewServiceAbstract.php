@@ -2,24 +2,32 @@
 
 namespace App\Services\InterviewService;
 
+use App\Enums\InterviewStatusesEnum;
 use App\Models\Interview;
+use Exception;
 
 abstract class InterviewServiceAbstract implements InterviewServiceInterface
 {
+    
+    /**
+     * @param array $interviewData
+     * @return Exception|Interview
+     * @throws Exception
+     */
     public function createInterview(array $interviewData): \Exception|Interview
     {
+//        Любое новое интервью создаётся со статусом открыто
+        $interviewData['status'] = InterviewStatusesEnum::OPEN->value;
+        
+        $interview = Interview::create($interviewData);
+        
+        if (!$interview instanceof Interview) {
+            \Log::error("Interview not created in " . __CLASS__);
+            throw new Exception('Interview not created');
+        }
+        
         return Interview::firstOrCreate($interviewData);
     }
     
-    public function updateInterview(array $interviewData): Interview
-    {
-        $interview = $this->createInterview($interviewData);
-        $interview->update($interviewData);
-        return $interview->refresh();
-    }
-    
-    protected static function log(string $message = 'Interview service called', string $level = 'info'): void
-    {
-        \Log::$level($message . ' in ' . __CLASS__);
-    }
+    abstract function updateInterview(Interview $interview): Interview;
 }

@@ -3,13 +3,17 @@
 namespace App\Livewire\Pages\Interview;
 
 use App\Enums\InterviewStatusesEnum;
+use App\Http\Requests\InterviewRequest;
 use App\Livewire\Forms\InterviewForm;
 use App\Models\Interview;
 use App\Models\Position;
 
 use App\Facades\InterviewFacade;
+use App\Services\InterviewService\InterviewService;
+use Livewire\Attributes\On;
 use Livewire\Component;
 use WireUi\Traits\Actions;
+use function Livewire\Volt\rules;
 
 class Create extends Component
 {
@@ -17,44 +21,50 @@ class Create extends Component
     
     public InterviewForm $interviewForm;
     
+    public $created;
     private $interview;
     public $positionOptions;
-    public $statusOptions;
     
     public function mount()
     {
         $this->positionOptions = Position::all();
-        $this->statusOptions = InterviewStatusesEnum::cases();
+    }
+    
+    #[On('interview-update')]
+    public function updatePosition()
+    {
+        $this->positionOptions = Position::all();
     }
     
     public function createInterview()
     {
+        $validatedData = $this->interviewForm->validateForm();
+        
         try {
-            $this->interview = InterviewFacade::createInterview($this->interviewForm->validate());
+            $this->interview = InterviewFacade::createInterview($validatedData);
         } catch (\Exception $exception){
-            $this->errorDialog();
+            $this->showDialog(description: $exception->getMessage());
         }
         
-//        $this->successDialog();
+        $this->created = true;
+        
+        $this->showDialog('info','OK',"Интервью создано<br> {$this->getLink()}");
+    }
+    private function getLink()
+    {
+        $route = route('interview.edit',['interview' => $this->interview->path()]);
+        return "<a class='text-xl text-green-500' href={$route}>Перейти к интервью</a>";
     }
     
-    public function errorDialog(): void
+    public function showDialog($icon = null, $title = null, $description = null): void
     {
         $this->dialog()->show([
-            'icon' => 'error',
-            'title' => 'Error Dialog!',
-            'description' => __('interview.Interview Not Saved Please Connect with Administrator.'),
+            'icon' => $icon ?? 'error',
+            'title' => $title ?? 'Error',
+            'description' => $description ?? trans('interview.Interview Not Saved Please Connect with Administrator.'),
         ]);
     }
     
-    public function successDialog(): void
-    {
-        $this->dialog()->show([
-            'icon' => 'success',
-            'title' => 'Success Dialog!',
-            'description' => 'This is a description.',
-        ]);
-    }
     
     public function render()
     {
