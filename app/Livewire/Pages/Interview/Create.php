@@ -21,12 +21,12 @@ class Create extends Component
     
     public InterviewForm $interviewForm;
     
-    public $created;
-    private $interview;
+    public Interview $interview;
     public $positionOptions;
     
     public function mount()
     {
+        $this->interviewForm->reset();
         $this->positionOptions = Position::all();
     }
     
@@ -36,23 +36,33 @@ class Create extends Component
         $this->positionOptions = Position::all();
     }
     
+    public function deleteInterview()
+    {
+        $this->interview->delete();
+        $this->redirect(route('interview.index'));
+        $this->notification()->success('Удалено', 'Интервью удалено');
+    }
+    
     public function createInterview()
     {
         $validatedData = $this->interviewForm->validateForm();
         
         try {
             $this->interview = InterviewFacade::createInterview($validatedData);
-        } catch (\Exception $exception){
+        } catch (\Exception $exception) {
             $this->showDialog(description: $exception->getMessage());
         }
         
-        $this->created = true;
+        $this->interviewForm->fill($this->interview);
         
-        $this->showDialog('info','OK',"Интервью создано<br> {$this->getLink()}");
+        $this->redirect(route('interview.edit', ['interview' => $this->interview->path()]));
+        
+        $this->showDialog('info', 'OK', "Интервью создано<br> {$this->getLink()}");
     }
+    
     private function getLink()
     {
-        $route = route('interview.edit',['interview' => $this->interview->path()]);
+        $route = route('interview.edit', ['interview' => $this->interview->path()]);
         return "<a class='text-xl text-green-500' href={$route}>Перейти к интервью</a>";
     }
     
