@@ -6,8 +6,9 @@ use App\Models\Interview;
 
 class InterviewRejected extends InterviewServiceAbstract implements InterviewServiceInterface
 {
-    public function updateInterview(array|Interview $interview): Interview
+    public function updateInterview(array|Interview $interview, array $newInterviewData): Interview
     {
-        // TODO: смену статуса c open => rejected.
+        $interview->update($newInterviewData);
+        return $interview->refresh();
     }
 }

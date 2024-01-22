@@ -13,14 +13,12 @@ use Psr\Log\LoggerInterface;
 
 class InterviewPassed extends InterviewServiceAbstract implements InterviewServiceInterface
 {
-    protected Interview $interview;
-    public function updateInterview(array|Interview $interview): Interview
+    public function updateInterview(Interview $interview, array $newInterviewData = []): Interview
     {
-        $interview = DB::transaction(function () use ($interview) {
+        $interview = DB::transaction(function () use ($interview, $newInterviewData) {
             //  Предохраняемся от повторного создание интервью
             if($interview->employee_id === null){
                 $newEmployee = Employee::create($interview->only(['first_name','last_name','email']));
-                
                 $interview->update([
                     'employee_id' => $newEmployee->id,
                     'status' => InterviewStatusesEnum::ARCHIVED->value,
@@ -28,16 +26,17 @@ class InterviewPassed extends InterviewServiceAbstract implements InterviewServi
                 
                 return $interview->refresh();
             }
-            return $this->interview = $interview;
+            $interview->update($newInterviewData);
+            return $interview->refresh();
         }, 3);
         
-        $this->callEvents();
+        $this->callEvents($interview);
         
         return $interview;
     }
     
-    protected function callEvents(): void
+    protected function callEvents($interview): void
     {
-        event(new InterviewPassedEvent($this->interview));
+        InterviewPassedEvent::dispatch($interview);
     }
 }
