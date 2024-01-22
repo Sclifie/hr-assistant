@@ -11,9 +11,7 @@ class InterviewController extends Controller
     public function index()
     {
         return view('pages.interview.index', [
-            'interviews' => Interview::query()
-                ->orderBy('created_at', 'DESC')
-                ->paginate()
+            'interviews' => Interview::orderedByCol()->paginate()
         ]);
     }
     
