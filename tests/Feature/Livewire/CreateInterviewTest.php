@@ -24,7 +24,9 @@ class CreateInterviewTest extends TestCase
     
     public function test_component_exists_on_the_page_create()
     {
-        $this->get(route('interview.create'))
+        $user = User::factory()->create();
+        
+        $this->actingAs($user)->get(route('interview.create'))
             ->assertSeeLivewire(Create::class);
     }
     
