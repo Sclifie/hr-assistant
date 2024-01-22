@@ -24,7 +24,7 @@ class InterviewFactory extends Factory
             'email' => $this->faker->unique()->safeEmail(),
             'status' => $this->faker->randomElement($statuses),
             'employee_id' => null,
-            'position_id' => fn() => Position::inRandomOrder()->first()->id,
+            'position_id' => fn () => Position::inRandomOrder()->first()->id,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ];
