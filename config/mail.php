@@ -103,6 +103,11 @@ return [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
+    
+    'to' => [
+        'address' => env('MAIL_CEO_ADDRESS', 'ceo@contora.com'),
+        'name' => env('MAIL_CEO_NAME', 'Our Principal CEO'),
+    ],
 
     /*
     |--------------------------------------------------------------------------
