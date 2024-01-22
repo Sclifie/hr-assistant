@@ -3,15 +3,15 @@
 namespace App\Events;
 
 use App\Models\Interview;
+use Illuminate\Contracts\Events\ShouldDispatchAfterCommit;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class InterviewPassedEvent
+class InterviewPassedEvent implements ShouldDispatchAfterCommit
 {
     use Dispatchable, SerializesModels;
     
-    public Interview $interview;
-    
-    public function __construct(Interview $interview)
+    public function __construct(public Interview $interview)
     {}
+    
 }
