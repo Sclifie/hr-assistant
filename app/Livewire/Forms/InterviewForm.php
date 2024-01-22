@@ -12,16 +12,14 @@ use function Livewire\invade;
 
 class InterviewForm extends Form
 {
-    #[Locked]
-    public int $id;
+    public ?int $id;
+    public ?int $position_id;
+    public ?int $employee_id;
     
-    public int $position_id;
-    public string $email;
-    public string $first_name;
-    public string $last_name;
-    public string $status;
-    public int|null $employee_id;
-    
+    public ?string $email;
+    public ?string $first_name;
+    public ?string $last_name;
+    public ?string $status;
     
     /**
      * Заполнение формы в случае если она используется для редактирования записей
