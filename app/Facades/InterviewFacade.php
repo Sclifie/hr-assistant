@@ -9,6 +9,6 @@ class InterviewFacade extends Facade
 {
     protected static function getFacadeAccessor()
     {
-        return 'interview-service';
+        return 'app-interview-service';
     }
 }
