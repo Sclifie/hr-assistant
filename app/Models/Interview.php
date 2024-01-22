@@ -45,13 +45,17 @@ class Interview extends Model
         return $this->hasOne(Employee::class, 'employee_id', 'id');
     }
     
-    
     /**
      *   Позиция по текущему интервью
      */
     public function position() : HasOne
     {
         return $this->hasOne(Position::class,'id','position_id');
+    }
+    
+    public static function orderedByCol($column = 'updated_at', $direction = 'DESC')
+    {
+        return static::orderBy($column, $direction);
     }
     
 }
