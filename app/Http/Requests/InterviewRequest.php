@@ -14,7 +14,8 @@ class InterviewRequest extends FormRequest
             'email' => ['required', 'email', 'max:254'],
             'status' => ['nullable'],
             'employee_id' => ['nullable', 'integer','exists:App\Models\Employee,id'],
-            'position_id' => ['required','exists:App\Models\Position,id']
+            'position_id' => ['required','exists:App\Models\Position,id'],
+            'photo' => ['image','max:2048']
         ];
     }
     

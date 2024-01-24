@@ -15,7 +15,7 @@ class InterviewFactory extends Factory
     public function definition(): array
     {
         $statuses = [
-            'open', 'rejected', 'passed',
+            'open', 'rejected', 'passed', 'archived'
         ];
         
         return [

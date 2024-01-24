@@ -11,14 +11,16 @@ use App\Models\Position;
 use App\Facades\InterviewFacade;
 use App\Services\InterviewService\InterviewService;
 use Livewire\Attributes\On;
+use Livewire\Attributes\Validate;
 use Livewire\Component;
+use Livewire\WithFileUploads;
 use WireUi\Traits\Actions;
 use function Livewire\Volt\rules;
 
 class Create extends Component
 {
     use Actions;
-    
+
     public InterviewForm $interviewForm;
     
     public Interview $interview;

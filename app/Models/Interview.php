@@ -21,6 +21,8 @@ class Interview extends Model
         'employee_id',
     ];
     
+    protected $with = ['images'];
+    
     /**
      * Если поменяем роутбиндинг нужно поменять данный метод
      */
@@ -32,13 +34,13 @@ class Interview extends Model
     /**
      *  Просто конкатенированная строка Имя + Фамилия
      * */
-    public function getFullName() : string
+    public function getFullName(): string
     {
         return $this->attributes['first_name'] . ' ' . $this->attributes['last_name'];
     }
     
     /**
-     *  Возвращаем работника
+     *  Возвращаем отношение Работника
      */
     public function employee(): HasOne
     {
@@ -48,11 +50,26 @@ class Interview extends Model
     /**
      *   Позиция по текущему интервью
      */
-    public function position() : HasOne
+    public function position(): HasOne
     {
-        return $this->hasOne(Position::class,'id','position_id');
+        return $this->hasOne(Position::class, 'id', 'position_id');
     }
     
+    /**
+     * Картинка(и) данного интервью
+     */
+    
+    public function images()
+    {
+        return $this->morphToMany(Image::class, 'imaginable');
+    }
+    
+    /**
+     * Ордер by
+     * @param string $column Attribute name
+     * @param string $direction Direction
+     * @return Interview
+     */
     public static function orderedByCol($column = 'updated_at', $direction = 'DESC')
     {
         return static::orderBy($column, $direction);

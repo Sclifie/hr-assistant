@@ -41,6 +41,21 @@ class Edit extends Component
         }
     }
     
+    public function updated()
+    {
+        $updateNoticeMsg = "Приведение интервью в статус пройденного приведёт
+                к созданию работника и не обратимым последствиям вы уверены в том что делаете?";
+        
+        if($this->interviewForm->status === InterviewStatusesEnum::PASSED->value)
+        {
+            $this->dialog()->show([
+                'icon' => $icon ?? 'alert',
+                'title' => $title ?? 'Внимание',
+                'description' => $updateNoticeMsg,
+            ]);
+        }
+    }
+    
     public function render()
     {
         return view('livewire.pages.interview.edit');

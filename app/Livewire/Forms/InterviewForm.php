@@ -20,6 +20,7 @@ class InterviewForm extends Form
     public ?string $first_name;
     public ?string $last_name;
     public ?string $status;
+    public ?string $photo;
     
     /**
      * Заполнение формы в случае если она используется для редактирования записей

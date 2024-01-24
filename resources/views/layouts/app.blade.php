@@ -12,8 +12,8 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-        @wireUiScripts
+        @vite(['resources/css/app.css'])
+        @stack('head')
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
@@ -33,5 +33,8 @@
                 {{ $slot }}
             </main>
         </div>
+        @vite(['resources/js/app.js'])
+        @wireUiScripts
+    @stack('body')
     </body>
 </html>
