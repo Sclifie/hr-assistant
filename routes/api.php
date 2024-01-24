@@ -17,5 +17,3 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::middleware(['auth:sanctum','throttle:api'])->post('/image',[\App\Http\Controllers\ImageController::class,'store']);
